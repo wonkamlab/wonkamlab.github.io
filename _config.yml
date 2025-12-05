@@ -48,7 +48,7 @@ mermaid:
 # Aux links for the upper right navigation
 aux_links:
   "<span align=\"center\"><img src=\"/docs/assets/img/gr-on-github.png\" height=\"60%\" width=\"60%\"></span>":
-    - "https://github.com/GeneMAP-Research/"
+    - "https://github.com/wonkamlab/"
 #  "GR on GitHub":
 #    - "https://github.com/GeneMAP-Research/genemap-research.github.io"
   "<span align=\"center\"><img src=\"/docs/assets/img/genemap-logo.png\" height=\"100%\" width=\"100%\"></span>":
@@ -103,7 +103,7 @@ back_to_top: true
 back_to_top_text: "Back to top"
 
 
-footer_content: "Copyright &copy; 2022-2023 Kevin Esoh. Distributed by an <a href=\"https://github.com/GeneMAP-Research/genemap-research.github.io/blob/main/LICENSE.txt\">MIT license.</a> <a href=\"https://pages.github.com/\">This site is powered by GitHub Pages.</a>"
+footer_content: "Copyright &copy; 2022-2023 Wonkam Lab. Distributed by an <a href=\"https://github.com/wonkamlab/genemap-research.github.io/blob/main/LICENSE.txt\">MIT license.</a> <a href=\"https://pages.github.com/\">This site is powered by GitHub Pages.</a>"
 
 
 # Footer last edited timestamp
@@ -114,7 +114,7 @@ last_edit_time_format: "%b %e %Y at %I:%M %p" # uses ruby's time format: https:/
 # Footer "Edit this page on GitHub" link text
 gh_edit_link: true # show or hide edit this page link
 gh_edit_link_text: "Edit this page on GitHub"
-gh_edit_repository: "https://github.com/GeneMAP-Research/genemap-research.github.io" # the github URL for your repo
+gh_edit_repository: "https://github.com/wonkamlab/genemap-research.github.io" # the github URL for your repo
 gh_edit_branch: "main" # the branch that your docs is served from
 # gh_edit_source: docs # the source that your files originate from
 gh_edit_view_mode: "tree" # "tree" or "edit" if you want the user to jump into the editor immediately
