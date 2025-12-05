@@ -1,2 +1,2 @@
-# genemap-resources
-GeneMAP resources
+# Wonkam Lab
+Wonkam Lab Resources
