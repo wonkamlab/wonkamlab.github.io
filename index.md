@@ -1,6 +1,7 @@
 ---
 layout: default
-title: "Home"
+title: "Wonkam Lab"
+description: "Genetic Medicine and African Populations"
 nav_order: 1
 ---
 
