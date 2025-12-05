@@ -1,7 +1,4 @@
-#remote_theme: just-the-docs/just-the-docs
-remote_theme: pages-themes/cayman@v0.2.0
-plugins:
-- jekyll-remote-theme # add this line to the plugins list if you already have one
+remote_theme: just-the-docs/just-the-docs
 logo: docs/assets/img/genemap-resources.svg
 #logo: assets/img/gis-logo.svg
 #logo: assets/img/esohinformatics_gitlogo.png
