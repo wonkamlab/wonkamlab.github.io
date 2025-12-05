@@ -7,7 +7,7 @@ nav_order: 1
 
 
 <p align="center">
-  <img src="docs/assets/img/wlab.JPG">
+  <img src="assets/img/wlab.JPG">
 </p>
 
 <!-- >
