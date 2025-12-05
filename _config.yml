@@ -3,7 +3,29 @@ plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
 
 title: Wonkam Lab
+author:
+  name: Kevin Esoh
+  email: esohkevin4@gmail.com
 description: Genetic Medicine and African Populations
 
+show_excerpts: false # set to true to show excerpts on the homepage
+show_drafts: true
+show_downloads: false
+google_analytics: true
+
 github:
+  owner_url: https://github.com/wonkamlab
+  owner_name: wonkamlab
+  repository_url: https://github.com/wonkamlab/wonkamlab.github.io
+  repository_name: wonkamlab.github.io
   is_project_page: true
+
+pages:
+  baseurl: https://wonkamlab.github.io
+  home: docs/projects.html
+  about: docs/about.html
+  #contact: docs/contact.html
+
+# point to my logo
+logourl: docs/assets/img/genemap-resources.svg
+logoalt: wlablogo
