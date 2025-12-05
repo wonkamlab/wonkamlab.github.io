@@ -448,3 +448,16 @@ tr:nth-child(even) {
   padding-inline-start: 2ch;
 }
 
+.newbtn {
+color: #0000ff;
+border-color: #0000ff;
+// background-color: #008CBA;
+}
+
+
+.newbtn:hover {
+color: #0bb6e1cc;
+text-decoration: none;
+background-color: #7c940ea1;
+border-color: #0000ff;
+}
