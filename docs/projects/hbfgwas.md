@@ -1,17 +1,11 @@
 ---
 layout: pages
-title: <img src="/assets/img/genemap-projects.svg">
-description: Genome-wide association study of fetal hemoglobin (HbF) in Cameroon, Tanzania, and African American Sickle Cell Anemia patients
+title: Genome-wide association study of fetal hemoglobin (HbF) in Cameroon, Tanzania, and African American Sickle Cell Anemia patients
 parent: Projects
 nav_order: 1
 ---
 
-
-# Genome-wide association study of fetal hemoglobin (HbF) in Cameroon, Tanzania, and African American Sickle Cell Anemia patients <a name="top"></a>
-
----
-
-# Contents
+# Contents <a name="top"></a>
 - [Load r package](#load-r)
 - [Load clinical datasets](#load-data)
 - [Cameroon data variables](#cm-data-var)
