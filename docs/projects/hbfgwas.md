@@ -1,8 +1,14 @@
 ---
 layout: pages
-title: Genome-wide association study of fetal hemoglobin (HbF) in Cameroon, Tanzania, and African American Sickle Cell Anemia patients
+title: HbF GWAS in SCD in Africans
 parent: Projects
 nav_order: 1
+---
+
+# Fetal Hemoglobin GWAS in SCD in Africans
+
+### Genome-wide association study of fetal hemoglobin (HbF) in Cameroon, Tanzania, and African American Sickle Cell Anemia patients
+
 ---
 
 # Contents <a name="top"></a>
