@@ -6,8 +6,11 @@ nav_order: 1
 ---
 
 
-# GeneMAP Resources
+<p align="center">
+  <img src="docs/assets/img/wlab.JPG">
+</p>
 
+<!-- >
 ----
 
 <p align="center"><a href="https://genemap-research.github.io/docs/projects/"><img src="docs/assets/img/genemap-projects.svg"></a></p>
@@ -35,3 +38,5 @@ nav_order: 1
 ----
 
 <p align="center"><a href="https://genemap-research.github.io/docs/tutorials/"><img src="docs/assets/img/genemap-tutorials.svg"></a></p>
+
+<-->
