@@ -22,7 +22,7 @@ github:
 
 pages:
   baseurl: https://wonkamlab.github.io
-  home: /docs/projects.html
+  home: /docs/project.html
   about: /docs/about.html
   contact: /docs/contact.html
 
