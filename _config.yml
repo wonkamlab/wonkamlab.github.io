@@ -22,9 +22,9 @@ github:
 
 pages:
   baseurl: https://wonkamlab.github.io
-  home: /projects.html
-  about: /about.html
-  #contact: docs/contact.html
+  home: /docs/projects.html
+  about: /docs/about.html
+  contact: /docs/contact.html
 
 # point to my logo
 logourl: docs/assets/img/genemap-resources.svg

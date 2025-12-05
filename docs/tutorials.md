@@ -1,6 +1,6 @@
 ---
-layout: default
 title: Tutorials
+layout: pages
 nav_order: 5
 has_children: true
 has_toc: true
