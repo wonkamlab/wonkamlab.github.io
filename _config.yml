@@ -27,7 +27,7 @@ pages:
   contact: /docs/contact.html
 
 # point to my logo
-logourl: docs/assets/img/genemap-resources.svg
+logourl: assets/img/genemap-logo.png
 logoalt: wlablogo
 
 # Navigation
