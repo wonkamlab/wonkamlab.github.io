@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: pages
 title: PGx Review
 parent: Projects
 nav_order: 1
