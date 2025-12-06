@@ -3,12 +3,8 @@ title: Contact Us
 layout: pages
 ---
 
-email: esohkev@gmail.com
+# Contact
 
-Twitter: @EsohKevin
-
-LinkedIn: Kevin-Esoh
-
-ORCID: 
+email: wonkamlabhopkins@gmail.com
 
 ***Under development***
