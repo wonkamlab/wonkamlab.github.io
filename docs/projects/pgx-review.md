@@ -9,7 +9,7 @@ nav_order: 1
 
 First online in _Annual Review of Pharmacology and Toxicology_, September 22, 2025: [https://www.annualreviews.org/content/journals/10.1146/annurev-pharmtox-071724-014737]()
 
-The source Ipython Notebooks of the visualizations is provided [here](AnnualReviewsPharmAndTox.html)
+The source Ipython Notebooks of the visualizations is provided [here](/docs/projects/AnnualReviewsPharmAndTox.html)
 
 Command to obtain the html from the notebook
 ```
