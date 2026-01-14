@@ -14,7 +14,7 @@ layout: pages
 
 2. [GWAS of Sickle Cell Nephropathy](#) - coming soon...
 
-3. [GWAS of Hematological Triats in Sickle Cell Disease](#) - coming soon...
+3. [GWAS of Hematological Triats in Sickle Cell Disease](/docs/projects/bloodtraits-gwas-notes.html){:.target=_blank:}
 
 ## Hearing Impairment
 
