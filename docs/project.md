@@ -16,17 +16,20 @@ layout: pages
 
 3. [GWAS of Hematological Triats in Sickle Cell Disease](/docs/projects/bloodtraits-gwas-notes.html){:.target=_blank:}
 
+
 ## Hearing Impairment
 
 ---
 
-_Under developmemnt_
+1. [Cameroon whole-exome sequencing study of families](docs/projects/maf-plot-publication.html){:.target=_blank:}
+
 
 ## Evolutionary and Population Genetics
 
 ---
 
 1. [Y-chromosome Project](#) - coming soon...
+
 
 ## Other Review and Collaborative Projects
 
