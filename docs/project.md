@@ -21,7 +21,7 @@ layout: pages
 
 ---
 
-1. [Cameroon whole-exome sequencing study of families](docs/projects/maf-plot-publication.html){:.target=_blank:}
+1. [Cameroon whole-exome sequencing study of families](/docs/projects/maf-plot-publication.html){:.target=_blank:}
 
 
 ## Evolutionary and Population Genetics
