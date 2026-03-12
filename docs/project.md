@@ -10,18 +10,18 @@ layout: pages
 
 ---
 
-1. [GWAS of Fetal Hemoglobin in African Ancestries](/docs/projects/hbfgwas.html){:.target=_blank:}
+1. [GWAS of Fetal Hemoglobin in African Ancestries](/docs/projects/hbfgwas.html){:target="_blank"}
 
 2. [GWAS of Sickle Cell Nephropathy](#) - coming soon...
 
-3. [GWAS of Hematological Triats in Sickle Cell Disease](/docs/projects/bloodtraits-gwas-notes.html){:.target=_blank:}
+3. [GWAS of Hematological Triats in Sickle Cell Disease](/docs/projects/bloodtraits-gwas/bloodtraits-gwas-notes.html){:target="_blank"}
 
 
 ## Hearing Impairment
 
 ---
 
-1. [Cameroon whole-exome sequencing study of families](/docs/projects/maf-plot-publication.html){:.target=_blank:}
+1. [Cameroon whole-exome sequencing study of families](/docs/projects/cmr-hi-wes/maf-plot-publication.html){:target="_blank"}
 
 
 ## Evolutionary and Population Genetics
