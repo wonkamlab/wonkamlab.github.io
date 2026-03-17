@@ -427,9 +427,13 @@ nextflow \
 </section>
 </section>
 </section>
-<section id="post-qc-pca-mergedset" class="level1">
-<h1>Post-QC PCA, Mergedset</h1>
-<p>We merged data across the cohorts for PCA as follows:</p>
+<section id="post-qc-pca-mergedset" class="level1 tabset tabset-pills">
+<h1 class="tabset tabset-pills">Post-QC PCA, Mergedset</h1>
+<p>We first merged data across the cohorts as follows:</p>
+<ul>
+<li>First we get the intersect of the datasets: <code>isec</code></li>
+<li>Then merge the data per study containing only SNPs intesecting all studies: <code>-n=4</code></li>
+</ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash fold-show code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">bcftools</span> <span class="dt">\</span></span>
@@ -443,13 +447,99 @@ nextflow \
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  /data/awonkam1/kesoh/gwas/gha/aligned/combined/sicklegen-gha-hg19_aligned.vcf.gz <span class="dt">\</span></span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  /data/awonkam1/kesoh/gwas/sitt/aligned/combined/sitt-pass-qc-crossmap-hg19_aligned.vcf.gz</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> sites.txt</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 190635 sites.txt</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of SNPs intersecting studies</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> sites.txt</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 190635 sites.txt</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="ex">bcftools</span> <span class="dt">\</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  merge 000<span class="dt">{</span><span class="dv">0</span><span class="dt">..</span><span class="dv">3</span><span class="dt">}</span>.vcf.gz <span class="dt">\</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--threads</span> 32 <span class="dt">\</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">-Oz</span> <span class="dt">\</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> cmr-tzn-gha-sitt-scd-mergedset.vcf.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li>isec: SNPs intersects</li>
-<li>n=4: SNPs present in exactly all four studies</li>
+<li>Next, we get a population labels file for PCA</li>
 </ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash fold-show code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> 000<span class="dt">{</span><span class="dv">0</span><span class="dt">..</span><span class="dv">3</span><span class="dt">}</span>.vcf.gz<span class="kw">;</span> <span class="cf">do</span>  </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">bcftools</span> <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    query <span class="dt">\</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">-l</span> <span class="va">$i</span> <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">awk</span> <span class="dt">\</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">-v</span> pop=<span class="st">"</span><span class="va">${i</span><span class="op">/</span><span class="ss">.vcf</span><span class="pp">*</span><span class="op">/</span><span class="va">}</span><span class="st">POP"</span> <span class="dt">\</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">'{print $1, pop}'</span><span class="kw">;</span> </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span> <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/0000POP/CMR/g; s/0001POP/TZN/g; s/0002POP/GHA/g; s/0003POP/SITT/g'</span> <span class="op">&gt;</span> cmr-tzn-gha-sitt-scd-pops.txt</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-3</span> cmr-tzn-gha-sitt-scd-pops.txt</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 202637450131_R05C01 CMR</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 202637450131_R07C01 CMR</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 202637450156_R01C01 CMR</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Convert VCF to PLINK binary format for QC</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash fold-show code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink2</span> <span class="dt">\</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--double-id</span> <span class="dt">\</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--make-bed</span> <span class="dt">\</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--out</span> cmr-tzn-gha-sitt-scd-mergedset <span class="dt">\</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--threads</span> 32 <span class="dt">\</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--vcf</span> cmr-tzn-gha-sitt-scd-mergedset.vcf.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Perform QC using the Nextflow workflow with the following parameters</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash fold-show code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>   <span class="ex">bfile</span>            = <span class="st">'/data/awonkam1/kesoh/gwas/mergedset/raw/cmr-tzn-gha-sitt-scd-mergedset'</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>   <span class="ex">pheno_file</span>       = <span class="st">'NULL'</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>   <span class="ex">out</span>              = <span class="st">'cmr-tzn-gha-sitt-scd-mergedset'</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>   <span class="ex">output_dir</span>       = <span class="st">'/data/awonkam1/kesoh/gwas/mergedset/'</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">hetlower</span>         = <span class="st">'NULL'</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>   <span class="ex">hetupper</span>         = <span class="st">'NULL'</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>   <span class="ex">maf</span>              = 0.01</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>   <span class="ex">geno</span>             = 0.05</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>   <span class="ex">mind</span>             = 0.10</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>   <span class="ex">keep_related</span>     = false</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>   <span class="ex">keep_palindrome</span>  = false</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>   <span class="ex">keep_outliers</span>    = false</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>   <span class="ex">threads</span>          = 48</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>   <span class="ex">njobs</span>            = 1</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash fold-show code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">N</span> E X T F L O W  ~  version 22.10.0-RC1</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Launching</span> <span class="kw">`</span><span class="ex">genemapgwas/qc.nf</span><span class="kw">`</span> <span class="pp">[</span><span class="ss">cranky_dubinsky</span><span class="pp">]</span> DSL2 <span class="at">-</span> revision: 86e0e2d8e2</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="ex">GeneMAP</span> GWAS QC WORKFLOW</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="ex">executor</span> <span class="op">&gt;</span>  local <span class="er">(</span><span class="ex">17</span><span class="kw">)</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="ex">[55/e4fe66]</span> process <span class="op">&gt;</span> checkDuplicateSampleIds <span class="er">(</span><span class="ex">checking</span> duplicate samples...<span class="kw">)</span>                            <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="ex">[e6/0ff877]</span> process <span class="op">&gt;</span> removeDuplicateVars <span class="er">(</span><span class="ex">romoving</span> duplicate variants<span class="kw">)</span>                                  <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="ex">[fc/96e7d3]</span> process <span class="op">&gt;</span> getKingFormatFile <span class="er">(</span><span class="ex">formatting</span> data for KING...<span class="kw">)</span>                                    <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="ex">[4b/04fe52]</span> process <span class="op">&gt;</span> checkDuplicateAndRelatedIndivs <span class="er">(</span><span class="ex">checking</span> related and duplicate individuals...<span class="kw">)</span>     <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="ex">[2e/00ae0d]</span> process <span class="op">&gt;</span> checkDiscordantSex <span class="er">(</span><span class="ex">checking</span> discordant sex...<span class="kw">)</span>                                    <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="ex">[fa/d5f71b]</span> process <span class="op">&gt;</span> computeSampleMissingnesStats <span class="er">(</span><span class="ex">calculating</span> missingness statistics...<span class="kw">)</span>               <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="ex">[09/0e8207]</span> process <span class="op">&gt;</span> checkSamplesMissingess <span class="er">(</span><span class="ex">checking</span> sample missingness...<span class="kw">)</span>                            <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="ex">[fc/957c8a]</span> process <span class="op">&gt;</span> removePoorQualitySamples <span class="er">(</span><span class="ex">excluding</span> poor quality samples...<span class="kw">)</span>                       <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="ex">[8b/28245d]</span> process <span class="op">&gt;</span> checkPoorQualityVariants <span class="er">(</span><span class="ex">checking</span> poor quality snps...<span class="kw">)</span>                           <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="ex">[0c/362121]</span> process <span class="op">&gt;</span> checkPalindromes <span class="er">(</span><span class="ex">checking</span> palindromic snps...<span class="kw">)</span>                                    <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="ex">[d5/1ac14c]</span> process <span class="op">&gt;</span> removePoorQualityVariants <span class="er">(</span><span class="ex">removing</span> poor quality snps...<span class="kw">)</span>                          <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="ex">[4c/2e53b3]</span> process <span class="op">&gt;</span> performPca <span class="er">(</span><span class="ex">running</span> PCA...<span class="kw">)</span>                                                        <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="ex">[93/603078]</span> process <span class="op">&gt;</span> plotPca <span class="er">(</span><span class="ex">plotting</span> PCA...<span class="kw">)</span>                                                          <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="ex">[fe/a82480]</span> process <span class="op">&gt;</span> getPed <span class="er">(</span><span class="ex">processing</span> cmr-tzn-gha-sitt-scd-mergedset-pass-qc...<span class="kw">)</span>                      <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="ex">[b7/64d69c]</span> process <span class="op">&gt;</span> getParams <span class="er">(</span><span class="ex">preparing</span> parameter file for cmr-tzn-gha-sitt-scd-mergedset-pass-qc...<span class="kw">)</span> <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="ex">[b5/df295e]</span> process <span class="op">&gt;</span> getEigenstratgeno <span class="er">(</span><span class="ex">converting</span> data for cmr-tzn-gha-sitt-scd-mergedset-pass-qc...<span class="kw">)</span>  <span class="ex">[100%]</span> 1 of 1 ✔</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="ex">[39/4a1c08]</span> process <span class="op">&gt;</span> prunePopOutliers <span class="er">(</span><span class="ex">pruning</span> outliers for cmr-tzn-gha-sitt-scd-mergedset-pass-qc...<span class="kw">)</span>  <span class="bu">[</span>  0%] 0 of <span class="er">1</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="ex">[-</span>        ] process <span class="op">&gt;</span> getPrunedData                                                                      <span class="at">-</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="qc-report" class="level2">
+<h2 class="anchored" data-anchor-id="qc-report">QC Report</h2>
+<p><img src="/data/awonkam1/kesoh/gwas/mergedset/qc/cmr-tzn-gha-sitt-scd-mergedset_sample_missingness.png" width="50%"></p>
+</section>
+<section id="pca-post-qc" class="level2">
+<h2 class="anchored" data-anchor-id="pca-post-qc">PCA Post-QC</h2>
+<p><img src="/data/awonkam1/kesoh/gwas/mergedset/qc/cmr-tzn-gha-sitt-scd-mergedset-pass-qc.eigenvec_pca.png" width="50%"></p>
+</section>
+<section id="pca-post-outlier-pruning" class="level2">
+<h2 class="anchored" data-anchor-id="pca-post-outlier-pruning">PCA Post-Outlier Pruning</h2>
+<p><img src="/data/awonkam1/kesoh/gwas/mergedset/qc/cmr-tzn-gha-sitt-scd-mergedset-pass-qc.eigenvec_pca.png" width="50%"></p>
+</section>
 </section>
 
 </main>
