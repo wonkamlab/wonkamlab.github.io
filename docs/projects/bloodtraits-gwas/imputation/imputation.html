@@ -2984,10 +2984,10 @@ background-color: #f2f2f2;
 <p><a href="../bloodtraits-gwas-notes.html">Back</a></p>
 <div id="align-genotypes-against-the-1000-genomes-reference" class="section level1">
 <h1>Align genotypes against the 1000 Genomes reference</h1>
-<p>This is done to: <br> - Check strand - Check reference overlap -
-Validate ref/alt SNP assignments <br> Only SNPs that overlap the
-reference panel with correct strand and alleles assignment are retained.
-<br> The <a href="https://faculty.washington.edu/browning/conform-gt.html">conform-gt</a>
+<p>This is done to: - Check strand - Check reference overlap - Validate
+ref/alt SNP assignments</p>
+<p>Only SNPs that overlap the reference panel with correct strand and
+alleles assignment are retained. <br> The <a href="https://faculty.washington.edu/browning/conform-gt.html">conform-gt</a>
 tool from BEAGLE Utils was used for this purpose. <br> The pipeline is
 written in Nextfow and available in GitHub here: <a href="https://github.com/esohkevin/ei-imputationservice">esohkevin/ei-imputationservice</a>
 <br></p>
@@ -3244,8 +3244,8 @@ nextflow \
 </div>
 <div id="haplotype-reference-panels" class="section level1 tabset tabset-pills mobile">
 <h1 class="tabset tabset-pills mobile">Haplotype reference panels</h1>
-<p>Six panels are generally used, or seven for Cameroon and SITT from
-imputation in our <a href="https://www.nature.com/articles/s41467-025-57413-5">HbF GWAS
+<p>Six panels are generally used, or seven as in the case of Cameroon
+and SITT including AGR from imputation in our <a href="https://www.nature.com/articles/s41467-025-57413-5">HbF GWAS
 study</a></p>
 <table>
 <colgroup>
@@ -3373,8 +3373,8 @@ reference panel used to impute it. <br></li>
 <hr />
 <div id="in-house-commandline" class="section level2">
 <h2>In-house Commandline</h2>
-<pre class="nextflow"><code># phasing
-# pbwt = 
+<pre class="nextflow"><code>
+# phasing
 ...
     script:
         &quot;&quot;&quot;
@@ -3389,6 +3389,7 @@ reference panel used to impute it. <br></li>
           --output chr${chrom}.${params.output_prefix}.shapeit4.vcf.gz
         &quot;&quot;&quot;
 ...
+
 
 # imputation
 ...
@@ -3406,7 +3407,7 @@ reference panel used to impute it. <br></li>
         &quot;&quot;&quot;
 ...</code></pre>
 <p><em>GMP1V2 and GMP3V1</em></p>
-<pre class="nextflow"><code>~/workflows/genemapimputation/genemapis.sh \
+<pre class="nextflow"><code>$isdir/genemapis.sh \
   phase \
   slurm \
   --phase_tool shapeit4 \
@@ -3435,7 +3436,7 @@ nextflow \
 <li>TOPMed and Michigan panels were submitted using a custom
 imputationbot script ustilizing the API functionality of the
 servers.</li>
-<li>H3A was submitted using their web-based option.</li>
+<li>H3Africa/AfriGen-D was submitted using their web-based option.</li>
 </ul>
 <div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="va">key_file</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$(</span><span class="fu">dirname</span> <span class="va">$0)</span><span class="st">/topmed_imputation_server_api_token.txt&quot;</span></span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="va">test_jq</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$(</span><span class="fu">which</span> jq <span class="dv">2</span><span class="op">&gt;</span>/dev/null<span class="va">)</span><span class="st">&quot;</span></span>
@@ -3510,7 +3511,7 @@ servers.</li>
 <span id="cb9-71"><a href="#cb9-71" tabindex="-1"></a></span>
 <span id="cb9-72"><a href="#cb9-72" tabindex="-1"></a>   <span class="cf">if</span> <span class="kw">[[</span> <span class="st">&quot;</span><span class="va">${job_status}</span><span class="st">&quot;</span> <span class="ot">==</span> <span class="st">&quot;false&quot;</span> <span class="kw">]];</span> <span class="cf">then</span></span>
 <span id="cb9-73"><a href="#cb9-73" tabindex="-1"></a>      <span class="bu">echo</span> <span class="st">&quot;&quot;</span></span>
-<span id="cb9-74"><a href="#cb9-74" tabindex="-1"></a>      <span class="bu">echo</span> <span class="st">&quot;Something went wrong! you job could not be submitted successfully.&quot;</span></span>
+<span id="cb9-74"><a href="#cb9-74" tabindex="-1"></a>      <span class="bu">echo</span> <span class="st">&quot;Something went wrong! your job could not be submitted successfully.&quot;</span></span>
 <span id="cb9-75"><a href="#cb9-75" tabindex="-1"></a>      <span class="bu">echo</span> <span class="st">&quot;Have you updated you API token?&quot;</span></span>
 <span id="cb9-76"><a href="#cb9-76" tabindex="-1"></a>      <span class="bu">echo</span> <span class="st">&quot;Login to the Topmed Imputation Server online, go to your profile and check if your API token expired.&quot;</span></span>
 <span id="cb9-77"><a href="#cb9-77" tabindex="-1"></a>      <span class="bu">echo</span> <span class="st">&quot;Revoke the expired token and create a new one.&quot;</span></span>
